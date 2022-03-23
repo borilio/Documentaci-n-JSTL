@@ -131,5 +131,6 @@ Repetirá la línea que hay dentro del `<c:forEach>` tantas veces como elementos
 
 En el atributo `items`, indicamos la colección que queremos recorrer. En el atributo `var`, indicamos el nombre de la variable que usaremos para acceder a cada elemento de la colección. JSTL se encargará de acceder al request, extraer el atributo de la petición, y hacer los casting necesarios.
 
+> 👀 En el for de JSTL, el atributo `items` usaremos la sintaxis de EL `${nombreColeccion}` pero en el atributo `var` se pone el nombre de la variable directamente. Mira el ejemplo. Es algo que se suele confundir mucho.
 
 
