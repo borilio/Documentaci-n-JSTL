@@ -55,7 +55,7 @@ Ejemplo:
 
 ```jsp
 <c:if test="${usuario.edad > 18}">
-	<div>Eres mayor de edad</div>
+    <div>Eres mayor de edad</div>
 </c:if>
 ```
 
