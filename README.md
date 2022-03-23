@@ -10,7 +10,8 @@ Deberás incluir la siguiente librería de JSTL en la carpeta `WEB-INF/lib` de t
 
 ### Con Apache Tomcat 10 o superior
 
-Si usas Tomcat 10 o superior, al usar la OpenJDK de Java, las librerías de JavaEE son las de Jakarta (en lugar de las de javax) Por lo tanto, las librerías a copiar en la carpeta `WEB-INF/lib` son las siguientes:
+Si usas Tomcat 10 o superior, al usar la OpenJDK de Java, las librerías son las de Jakarta (en lugar de las de javax). Por lo tanto, los archivos a copiar en la carpeta `WEB-INF/lib` son las siguientes (los dos archivos):
 
 > [jakarta.servlet.jsp.jstl-2.0.0.jar](lib-tomcat10/jakarta.servlet.jsp.jstl-2.0.0.jar)
+
 > [jakarta.servlet.jsp.jstl-api-2.0.0.jar](lib-tomcat10/jakarta.servlet.jsp.jstl-api-2.0.0.jar)
