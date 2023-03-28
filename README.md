@@ -178,6 +178,8 @@ La etiqueta `jsp:useBean` se utiliza en las páginas JSP para crear una instanci
 
 No es algo obligatorio para que funcione, pero posiblemente el IDE que uses te podrá ayudar con sugerencias cuando uses *Expression Language*, ya que ahora SI que sabrá la clase del objeto que está tratando.
 
+<img src="img/README/image-20230328194257826.png" alt="Autocomplet" style="zoom:80%;" />
+
 El uso de `jsp:useBean` se puede dividir en dos partes: **declaración** y **uso**.
 
 En la **declaración**, especificas el nombre del objeto que se creará y la clase de Java que se utilizará para crearlo, así como el alcance de ámbito para almacenarlo. Por ejemplo:
