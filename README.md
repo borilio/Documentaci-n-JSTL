@@ -1,6 +1,6 @@
 # JSTL - JSP Standard Tag Library
 
-## Instalación de librerías JSTL
+## Instalación de librerías JSTL manualmente
 
 ### Con Apache Tomcat 9 o anterior
 
@@ -15,6 +15,45 @@ Si usas Tomcat 10 o superior, al usar la OpenJDK de Java, las librerías son las
 > [jakarta.servlet.jsp.jstl-2.0.0.jar](lib-tomcat10/jakarta.servlet.jsp.jstl-2.0.0.jar)
 
 > [jakarta.servlet.jsp.jstl-api-2.0.0.jar](lib-tomcat10/jakarta.servlet.jsp.jstl-api-2.0.0.jar)
+
+
+## Instalación de librerías JSTL usando Maven
+
+Si estás usando Maven como gestor de dependencias, también deberás tener en cuenta si usas Tomcat 9 o anterior, o Tomcat 10 o superior. A continuación te indicamos las dependencias a añadir al `pom.xml` según la versión de Tomcat.
+
+### Con Apache Tomcat 9 o anterior
+
+```xml
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
+```
+
+
+
+### Con Apache Tomcat 10 o superior
+
+```xml
+<!-- Esta dependencia añade la librería JSTL -->
+<dependency>
+    <groupId>jakarta.servlet.jsp.jstl</groupId>
+    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+    <version>3.0.0</version>
+</dependency>
+
+<!-- Añade esta también si da algún problema en el paso siguiente (ej: IntelliJ) -->
+<dependency>
+    <groupId>org.glassfish.web</groupId>
+    <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+    <version>3.0.1</version>
+</dependency>
+```
+
+> 💡  Aquí se detallan las últimas versiones que se han probado y que funcionan en un proyecto usando Jakarta 10 y Tomcat 10. Si no funciona, prueba a usar versiones más antiguas modificando la versión.
+
+
 
 
 ## Pasos a seguir para usar JSTL
@@ -39,7 +78,7 @@ En esta página, encontrarás toda la información sobre como usar las etiquetas
 
 > http://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm
 
-A continuación un resumen de las etiquetas más comunes.
+A continuación un resumen con ejemplos de las etiquetas más comunes.
 
 
 
@@ -131,6 +170,34 @@ Repetirá la línea que hay dentro del `<c:forEach>` tantas veces como elementos
 
 En el atributo `items`, indicamos la colección que queremos recorrer. En el atributo `var`, indicamos el nombre de la variable que usaremos para acceder a cada elemento de la colección. JSTL se encargará de acceder al request, extraer el atributo de la petición, y hacer los casting necesarios.
 
-> 👀 En el for de JSTL, el atributo `items` usaremos la sintaxis de EL `${nombreColeccion}` pero en el atributo `var` se pone el nombre de la variable directamente. Mira el ejemplo. Es algo que se suele confundir mucho.
+> 👀 En el for de JSTL, el atributo `items` usaremos la sintaxis de EL `${nombreColeccion}` pero en el atributo `var` se pone el nombre de la variable directamente. Mira el ejemplo. **Es algo que se suele confundir mucho** .
 
+### Usar Beans
 
+La etiqueta `jsp:useBean` se utiliza en las páginas JSP para crear una instancia de una clase Java y almacenarla en un objeto de ámbito (scope) específico, como por ejemplo la solicitud (request), la sesión (session) o la aplicación (application). Los distintos ámbitos lo veremos más adelante, por ahora usaremos el `request`, que es el que hemos visto.
+
+No es algo obligatorio para que funcione, pero posiblemente el IDE que uses te podrá ayudar con sugerencias cuando uses *Expression Language*, ya que ahora SI que sabrá la clase del objeto que está tratando.
+
+El uso de `jsp:useBean` se puede dividir en dos partes: **declaración** y **uso**.
+
+En la **declaración**, especificas el nombre del objeto que se creará y la clase de Java que se utilizará para crearlo, así como el alcance de ámbito para almacenarlo. Por ejemplo:
+
+```jsp
+<jsp:useBean id="usuario" class="com.example.Usuario" scope="request" />
+```
+
+En este caso, la etiqueta `jsp:useBean` creará una instancia de la clase `com.example.Usuario` y la almacenará en el ámbito de request con el nombre `usuario`.
+
+Luego, puedes utilizar el objeto `usuario` en cualquier parte de la página JSP. Por ejemplo:
+
+```jsp
+<!-- Usando scriptlets... 👎 -->
+<p>Bienvenido, <%= usuario.getNombre() %> !</p>
+
+<!-- Usando Expression Language... 👍 -->
+<p>Bienvenido, ${usuario.nombre} ! </p>
+```
+
+Es importante tener en cuenta que, si el objeto ya existe en el ámbito especificado, `jsp:useBean` simplemente lo recuperará y no creará una nueva instancia. Si el objeto no existe, `jsp:useBean` creará una nueva instancia y la almacenará en el ámbito especificado.
+
+En resumen, `jsp:useBean` es una etiqueta útil para crear y almacenar objetos Java en diferentes ámbitos de una página JSP, sin tener que usar scriptlets.
